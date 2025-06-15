@@ -1,26 +1,354 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* AMARILLO FRISBY COMO COLOR PRINCIPAL */
+  --color-frisby-primary-50: #fefdf8;
+  --color-frisby-primary-100: #fef7e0;
+  --color-frisby-primary-200: #fdeaa7;
+  --color-frisby-primary-300: #fbdc6e;
+  --color-frisby-primary-400: #f9cc35;
+  --color-frisby-primary-500: #f7bf1c; /* AMARILLO PRINCIPAL */
+  --color-frisby-primary-600: #e1a91b;
+  --color-frisby-primary-700: #bc8f19;
+  --color-frisby-primary-800: #9a7316;
+  --color-frisby-primary-900: #7c5d13;
+
+  /* ROJO FRISBY COMO SECUNDARIO */
+  --color-frisby-red-50: #fef2f2;
+  --color-frisby-red-100: #fee2e2;
+  --color-frisby-red-200: #fecaca;
+  --color-frisby-red-300: #fca5a5;
+  --color-frisby-red-400: #f87171;
+  --color-frisby-red-500: #ef4444;
+  --color-frisby-red-600: #dc2626;
+  --color-frisby-red-700: #b91c1c;
+  --color-frisby-red-800: #991b1b;
+  --color-frisby-red-900: #7f1d1d;
+
+  /* COLORES DE APOYO */
+  --color-frisby-warm-50: #fefdf8;
+  --color-frisby-warm-100: #fef7e0;
+  --color-frisby-warm-200: #fdeaa7;
+  --color-frisby-warm-300: #fbdc6e;
+  --color-frisby-warm-400: #f9cc35;
+  --color-frisby-warm-500: #f7bf1c;
+  --color-frisby-warm-600: #e1a91b;
+  --color-frisby-warm-700: #bc8f19;
+  --color-frisby-warm-800: #9a7316;
+  --color-frisby-warm-900: #7c5d13;
+
+  --color-frisby-earth-50: #faf9f7;
+  --color-frisby-earth-100: #f0ede6;
+  --color-frisby-earth-200: #e2ddd1;
+  --color-frisby-earth-300: #cfc5b3;
+  --color-frisby-earth-400: #b8a688;
+  --color-frisby-earth-500: #a08862;
+  --color-frisby-earth-600: #8b6f47;
+  --color-frisby-earth-700: #72583a;
+  --color-frisby-earth-800: #5d4830;
+  --color-frisby-earth-900: #4a3826;
+
+  --color-frisby-nature-50: #f0fdf4;
+  --color-frisby-nature-100: #dcfce7;
+  --color-frisby-nature-200: #bbf7d0;
+  --color-frisby-nature-300: #86efac;
+  --color-frisby-nature-400: #4ade80;
+  --color-frisby-nature-500: #22c55e;
+  --color-frisby-nature-600: #16a34a;
+  --color-frisby-nature-700: #15803d;
+  --color-frisby-nature-800: #166534;
+  --color-frisby-nature-900: #14532d;
+
+  --font-family-display: "Inter", system-ui, sans-serif;
+  --font-family-body: "Inter", system-ui, sans-serif;
+
+  --animate-fade-up: fadeUp 0.6s ease-out forwards;
+  --animate-fade-in: fadeIn 0.8s ease-out forwards;
+  --animate-slide-right: slideRight 0.8s ease-out forwards;
+  --animate-bounce-gentle: bounceGentle 2s ease-in-out infinite;
+  --animate-pulse-warm: pulseWarm 2s ease-in-out infinite;
+  --animate-logo-rebuild: logoRebuild 2s ease-out forwards;
+
+  --backdrop-blur-xs: 2px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@font-face {
+  font-family: 'Barmeno';
+  src: url('/fonts/Barmeno Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+  
+  body {
+    @apply bg-white text-gray-900;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Mejoras de accesibilidad */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Optimizaciones de fuentes */
+  h1, h2, h3, h4, h5, h6 {
+    font-feature-settings: "liga" 1, "kern" 1;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Smooth scrolling para navegación */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Barmeno', 'Inter', system-ui, sans-serif;
+    font-weight: bold;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+  /* Componente de container personalizado */
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1200px;
+  }
+
+  /* Botones con estados de hover mejorados */
+  .btn-primary {
+    @apply bg-frisby-primary-500 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-300 hover:bg-frisby-primary-600 hover:shadow-xl hover:scale-105 active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply bg-frisby-red-500 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-300 hover:bg-frisby-red-600 hover:shadow-xl hover:scale-105 active:scale-95;
+  }
+
+  /* Cards con efectos de glassmorphism */
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-sm border border-white/20 shadow-lg rounded-2xl;
+  }
+
+  /* Gradientes personalizados */
+  .gradient-warm {
+    background: linear-gradient(135deg, #fef7e0 0%, #f9cc35 50%, #f7bf1c 100%);
+  }
+
+  .gradient-hero {
+    background: linear-gradient(135deg, #f7bf1c 0%, #f9cc35 50%, #ef4444 100%);
+  }
+
+  /* Efectos de texto */
+  .text-gradient {
+    @apply bg-gradient-to-r from-frisby-primary-500 to-frisby-red-500 bg-clip-text text-transparent;
+  }
+
+  /* Animaciones personalizadas */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Línea de tiempo personalizada */
+  .timeline-line {
+    @apply absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-frisby-primary-200 via-frisby-primary-300 to-frisby-red-300;
+  }
+
+  /* Efectos de hover para testimonials */
+  .testimonial-card {
+    @apply transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl;
+  }
+
+  /* Truncate text mejorado */
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  /* Componente de container personalizado */
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1200px;
+  }
+
+  /* Botones con estados de hover mejorados */
+  .btn-primary {
+    @apply bg-frisby-red-500 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-300 hover:bg-frisby-red-600 hover:shadow-xl hover:scale-105 active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply bg-frisby-warm-500 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-300 hover:bg-frisby-warm-600 hover:shadow-xl hover:scale-105 active:scale-95;
+  }
+
+  /* Cards con efectos de glassmorphism */
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-sm border border-white/20 shadow-lg rounded-2xl;
+  }
+
+  /* Gradientes personalizados */
+  .gradient-warm {
+    background: linear-gradient(135deg, #fef7e0 0%, #fed7aa 50%, #fca5a5 100%);
+  }
+
+  .gradient-hero {
+    background: linear-gradient(135deg, #fefdf8 0%, #ffffff 50%, #fef2f2 100%);
+  }
+
+  /* Efectos de texto */
+  .text-gradient {
+    @apply bg-gradient-to-r from-frisby-red-500 to-frisby-warm-500 bg-clip-text text-transparent;
+  }
+
+  /* Animaciones personalizadas */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Línea de tiempo personalizada */
+  .timeline-line {
+    @apply absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-frisby-red-200 via-frisby-warm-300 to-frisby-nature-300;
+  }
+
+  /* Efectos de hover para testimonials */
+  .testimonial-card {
+    @apply transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl;
+  }
+
+  /* Truncate text mejorado */
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@layer utilities {
+  /* Utilidades de spacing personalizadas */
+  .space-y-16 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(4rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(4rem * var(--tw-space-y-reverse));
+  }
+
+  /* Utilidades de aspect ratio */
+  .aspect-golden {
+    aspect-ratio: 1.618 / 1;
+  }
+
+  /* Utilidades de blend modes */
+  .mix-blend-multiply {
+    mix-blend-mode: multiply;
+  }
+
+  /* Utilidades de backdrop */
+  .backdrop-blur-xs {
+    backdrop-filter: blur(2px);
+  }
+}
+
+/* Keyframes personalizados */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes logoRebuild {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) rotate(-5deg);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Mejoras de performance */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Focus states mejorados para accesibilidad */
+.focus-visible:focus-visible {
+  @apply outline-none ring-2 ring-frisby-red-500 ring-offset-2;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-frisby-red-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-frisby-red-500;
 }
